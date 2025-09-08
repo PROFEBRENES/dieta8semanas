@@ -6,12 +6,12 @@
 <title>Plan de adelgazamiento – 8 semanas</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  @media print {
-    body { -webkit-print-color-adjust: exact; }
-    .no-print { display: none; }
-    table { page-break-inside: avoid; }
-    td, th { font-size: 10pt; }
-  }
+ @media print {
+ body { -webkit-print-color-adjust: exact; }
+ .no-print { display: none; }
+ table { page-break-inside: avoid; }
+ td, th { font-size: 10pt; }
+ }
 </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -21,41 +21,52 @@
 
 <!-- Botones de impresión y selección de semana -->
 <div class="flex flex-wrap gap-2 mb-6 no-print">
-  <button onclick="window.print()" class="px-3 py-1 border rounded bg-green-500 text-white">🖨️ Imprimir / PDF</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(0)">Semana 1</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(1)">Semana 2</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(2)">Semana 3</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(3)">Semana 4</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(4)">Semana 5</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(5)">Semana 6</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(6)">Semana 7</button>
-  <button class="px-3 py-1 border rounded bg-blue-500 text-white" onclick="showWeek(7)">Semana 8</button>
+ <button onclick="window.print()" class="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600">🖨️ Imprimir / PDF</button>
+ <button id="btn-0" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(0)">Semana 1</button>
+ <button id="btn-1" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(1)">Semana 2</button>
+ <button id="btn-2" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(2)">Semana 3</button>
+ <button id="btn-3" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(3)">Semana 4</button>
+ <button id="btn-4" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(4)">Semana 5</button>
+ <button id="btn-5" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(5)">Semana 6</button>
+ <button id="btn-6" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(6)">Semana 7</button>
+ <button id="btn-7" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(7)">Semana 8</button>
 </div>
 
-<!-- Bloques estáticos -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-  <div class="p-4 border rounded shadow-sm">
-    <h3 class="flex items-center gap-2 text-base mb-2">ℹ️ Desayuno (~300 kcal)</h3>
-    <ul class="list-disc pl-4 text-sm">
-      <li>Leche desnatada 200 ml (70 kcal)</li>
-      <li>Pan integral 40 g (105 kcal)</li>
-      <li>Queso light 30 g (45 kcal) o pavo 30 g (30 kcal)</li>
-      <li>Café solo 0 kcal</li>
-    </ul>
-  </div>
-  <div class="p-4 border rounded shadow-sm">
-    <h3 class="flex items-center gap-2 text-base mb-2">ℹ️ Media mañana (~100 kcal)</h3>
-    <ul class="list-disc pl-4 text-sm">
-      <li>Fruta: manzana 1 pieza (80 kcal)</li>
-    </ul>
-  </div>
-  <div class="p-4 border rounded shadow-sm">
-    <h3 class="flex items-center gap-2 text-base mb-2">ℹ️ Merienda (~150 kcal)</h3>
-    <ul class="list-disc pl-4 text-sm">
-      <li>Leche desnatada 150 ml (52 kcal)</li>
-      <li>Fruta: plátano 1 pieza (100 kcal)</li>
-    </ul>
-  </div>
+<!-- Sección colapsable de comidas fijas -->
+<div class="mb-6 bg-white border rounded-lg shadow-sm">
+ <!-- Botón para colapsar -->
+ <button 
+   onclick="toggleFixedMeals()" 
+   class="w-full p-4 text-left flex items-center justify-between bg-blue-100 hover:bg-blue-200 rounded-t-lg transition-colors cursor-pointer no-print">
+   <span class="text-lg font-semibold">📋 Comidas fijas diarias (Desayuno, Media mañana, Merienda) - 550 kcal</span>
+   <span id="toggle-icon" class="text-xl font-bold">▼</span>
+ </button>
+ 
+ <!-- Contenido colapsable -->
+ <div id="fixed-meals-content" class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+   <div class="p-4 border rounded shadow-sm">
+     <h3 class="flex items-center gap-2 text-base mb-2 font-semibold">🥛 Desayuno (~300 kcal)</h3>
+     <ul class="list-disc pl-4 text-sm space-y-1">
+       <li>Leche desnatada 200 ml (70 kcal)</li>
+       <li>Pan integral 40 g (105 kcal)</li>
+       <li>Queso light 30 g (45 kcal) o pavo 30 g (30 kcal)</li>
+       <li>Café solo 0 kcal</li>
+     </ul>
+   </div>
+   <div class="p-4 border rounded shadow-sm">
+     <h3 class="flex items-center gap-2 text-base mb-2 font-semibold">🍎 Media mañana (~100 kcal)</h3>
+     <ul class="list-disc pl-4 text-sm space-y-1">
+       <li>Fruta: manzana 1 pieza (80 kcal)</li>
+     </ul>
+   </div>
+   <div class="p-4 border rounded shadow-sm">
+     <h3 class="flex items-center gap-2 text-base mb-2 font-semibold">🥤 Merienda (~150 kcal)</h3>
+     <ul class="list-disc pl-4 text-sm space-y-1">
+       <li>Leche desnatada 150 ml (52 kcal)</li>
+       <li>Fruta: plátano 1 pieza (100 kcal)</li>
+     </ul>
+   </div>
+ </div>
 </div>
 
 <!-- Contenedor de tablas -->
@@ -63,8 +74,8 @@
 </div>
 
 <script>
-const DAYS = ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"];
-const DAY_LABELS = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const DAYS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
+const DAY_LABELS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 const PLACEHOLDER = ["—"];
 
 // Calorías fijas de desayuno, media mañana y merienda
@@ -72,243 +83,287 @@ const BREAKFAST_KCAL = 300;
 const MID_MORNING_KCAL = 100;
 const SNACK_KCAL = 150;
 
-// Función para extraer kcal de un string tipo "Pollo 120g (165 kcal)"
-function extraKcal(item){
-  const match = item.match(/\((\d+)\s*kcal\)/i);
-  return match ? parseInt(match[1]) : 0;
+// Variable para controlar si las comidas fijas están expandidas
+let fixedMealsExpanded = true;
+
+// Función para contraer/expandir las comidas fijas
+function toggleFixedMeals() {
+ const content = document.getElementById('fixed-meals-content');
+ const icon = document.getElementById('toggle-icon');
+ 
+ if (fixedMealsExpanded) {
+   // Contraer
+   content.style.display = 'none';
+   icon.textContent = '▶';
+   fixedMealsExpanded = false;
+ } else {
+   // Expandir
+   content.style.display = 'grid';
+   icon.textContent = '▼';
+   fixedMealsExpanded = true;
+ }
 }
 
-// Datos de las 8 semanas con cantidades y kcal aproximadas
-const WEEKS = [
-  {
-    title:"Semana 1",
-    comida:{
-      lunes:["Sopa de verduras 250g (120 kcal)","Fideos 70g (260 kcal)","Pollo 100g (165 kcal)","Aceite 10g (90 kcal)"],
-      martes:["Arroz con tomate 150g (180 kcal)","Huevo 60g (90 kcal)","Pimientos al horno 100g (40 kcal)","Aceite 10g (90 kcal)"],
-      miercoles:["Sopa de verduras 250g (120 kcal)","Fideos 70g (260 kcal)","Pollo 100g (165 kcal)","Aceite 10g (90 kcal)"],
-      jueves:["Garbanzos con acelga 150g (210 kcal)","Pescado 100g (120 kcal)","Ensalada 100g + aceite 10g (90 kcal)"],
-      viernes:["Tortilla de patata 150g (220 kcal)","Patatas cocidas 150g (120 kcal)","Verduras 100g (40 kcal)","Aceite 10g (90 kcal)"],
-      sabado:["Guisantes con jamón 150g (180 kcal)","Ensalada 100g + aceite 10g (90 kcal)"],
-      domingo:["Lentejas 150g (180 kcal)","Ternera 100g (210 kcal)","Berenjenas 100g (40 kcal)","Aceite 10g (90 kcal)"]
-    },
-    cena:{
-      lunes:["Ensalada 150g + aceite 10g (90 kcal)","Palitos de cangrejo 50g (75 kcal)","Atún natural 1 lata (120 kcal)"],
-      martes:["Ensalada 150g + aceite 10g (90 kcal)","Pollo 100g (165 kcal)"],
-      miercoles:["Ensalada 150g + aceite 10g (90 kcal)","Palitos de cangrejo 50g (75 kcal)","Atún natural 1 lata (120 kcal)"],
-      jueves:["Tomate 100g (20 kcal)","Lomo de cerdo 100g (200 kcal)","Aceite 10g (90 kcal)"],
-      viernes:["Sopa juliana 250g (120 kcal)","Pollo 100g (165 kcal)","Jamón 30g (70 kcal)","Ensalada 100g + aceite 10g (90 kcal)"],
-      sabado:["Menestra 200g (150 kcal)","Pescado 100g (120 kcal)","Aceite 10g (90 kcal)"],
-      domingo:["Ensalada 150g + huevo 1 pieza (70 kcal) + queso fresco 50g (60 kcal) + aceite 10g (90 kcal)"]
-    }
-  },
-  {
-    title:"Semana 2",
-    comida:{
-      lunes:["Lentejas 150g (180 kcal)","Pescado 100g (120 kcal)","Verduras 100g (40 kcal)","Aceite 10g (90 kcal)"],
-      martes:["Arroz 150g (180 kcal)","Pollo 100g (165 kcal)","Verduras 100g (40 kcal)","Aceite 10g (90 kcal)"],
-      miercoles:["Patata guisada 150g (120 kcal)","Pescado 100g (120 kcal)","Verduras 100g (40 kcal)","Aceite 10g (90 kcal)"],
-      jueves:["Menestra 200g (150 kcal)","Ternera 100g (210 kcal)","Ensalada 100g + aceite 10g (90 kcal)"],
-      viernes:["Espaguetis 70g (260 kcal)","Gambas 100g (100 kcal)","Ensalada 100g + aceite 10g (90 kcal)"],
-      sabado:["Crema de verduras 250g (120 kcal)","Pollo 100g (165 kcal)","Ensalada 100g + aceite 10g (90 kcal)"],
-      domingo:["Menestra 200g (150 kcal)","Ternera 100g (210 kcal)","Ensalada 100g + aceite 10g (90 kcal)"]
-    },
-    cena:{
-      lunes:["Ensalada 150g + aceite 10g (90 kcal)","Ternera 100g (210 kcal)"],
-      martes:["Tortilla de atún 60g (90 kcal)","Ensalada 150g + aceite 10g (90 kcal)"],
-      miercoles:["Ensalada 150g + aceite 10g (90 kcal)","Pinchito de pollo 100g (165 kcal)"],
-      jueves:["Revuelto de judías con jamón 150g (180 kcal)"],
-      viernes:["Champiñones 100g (25 kcal)","Lomo de cerdo 100g (200 kcal)","Aceite 10g (90 kcal)"],
-      sabado:["Pimientos asados 100g (40 kcal)","Bacalao 100g (120 kcal)","Aceite 10g (90 kcal)"],
-      domingo:["Revuelto de judías con jamón 150g (180 kcal)"]
-    }
-  },
-  {
- title:"Semana 3",
-    comida:{
-      lunes:["Menestra 200g (150 kcal)","Pescado merluza 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      martes:["Alubias 80g (270 kcal)","Ternera 120g + pimientos 100g + 1 cda aceite (300 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      miercoles:["Menestra 200g (150 kcal)","Pescado 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      jueves:["Macarrones 80g (280 kcal) + tomate frito 50g (40 kcal)","Pollo 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      viernes:["Patata cocida 150g (120 kcal)","Huevo a la plancha 100g (150 kcal) + 1 cda aceite (120 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      sabado:["Arroz 80g (280 kcal) + 3 delicias verduras 50g (40 kcal)","Ternera 120g + 1 cda aceite (240 kcal)","Tomate 100g (20 kcal)"],
-      domingo:["Garbanzos 80g (270 kcal) + verduras 100g (50 kcal)","Hamburguesa de pollo 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"]
-    },
-    cena:{
-      lunes:["Crema de calabacín 250g (80 kcal)","Tortilla 100g (150 kcal) + 1 cda aceite (120 kcal)"],
-      martes:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Pescado 120g (120 kcal)"],
-      miercoles:["Crema de calabacín 250g (80 kcal)","Tortilla 100g (150 kcal) + 1 cda aceite (120 kcal)"],
-      jueves:["Champiñones 100g (25 kcal)","Jamón serrano 50g (120 kcal)"],
-      viernes:["Sopa de verduras 250g (80 kcal)","Pollo 120g + 1 cda aceite (240 kcal)"],
-      sabado:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Queso fresco 50g (50 kcal)","Atún 120g (140 kcal)"],
-      domingo:["Revuelto de espárragos verdes 150g + jamón cocido 50g (150 kcal) + 1 cda aceite (120 kcal)"]
-    }
-  },
-  {
-    title:"Semana 4",
-    comida:{
-      lunes:["Sopa de verduras 250g (80 kcal)","Pollo 120g + fideos 80g (280 kcal) + 1 cda aceite (120 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      martes:["Alubias 80g (270 kcal)","Huevo escalfado 100g (150 kcal) + 1 cda aceite (120 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      miercoles:["Menestra 200g (150 kcal)","Pescado 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      jueves:["Arroz 80g (280 kcal)","Hamburguesa ternera 120g + tomate 100g (260 kcal) + 1 cda aceite (120 kcal)"],
-      viernes:["Sopa de verduras 250g (80 kcal)","Pollo 120g + fideos 80g (280 kcal) + 1 cda aceite (120 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      sabado:["Patata cocida 150g (120 kcal)","Huevo a la plancha 100g (150 kcal) + 1 cda aceite (120 kcal)"],
-      domingo:["Garbanzos 80g (270 kcal) + espinacas 100g (25 kcal)","Pescado 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"]
-    },
-    cena:{
-      lunes:["Pimientos del piquillo 100g (25 kcal) + 1 cda aceite (120 kcal)","Bacalao 120g (120 kcal)"],
-      martes:["Huevo guisado 100g (150 kcal)","Verduras 150g (50 kcal) + 1 cda aceite (120 kcal)"],
-      miercoles:["Coliflor 150g (30 kcal)","Jamón cocido 50g (80 kcal) + 1 cda aceite (120 kcal)"],
-      jueves:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Lomo cerdo 120g (200 kcal)"],
-      viernes:["Pimientos del piquillo 100g (25 kcal) + 1 cda aceite (120 kcal)","Bacalao 120g (120 kcal)"],
-      sabado:["Espárragos verdes 150g (25 kcal)","Gambas 100g (90 kcal) + 1 cda aceite (120 kcal)"],
-      domingo:["Berenjenas a la plancha 150g (40 kcal)","Tortilla de atún 100g (150 kcal) + 1 cda aceite (120 kcal)"]
-    }
-  },
-  {
-    title:"Semana 5",
-    comida:{
-      lunes:["Patata al horno 150g (120 kcal)","Pollo 120g + 1 cda aceite (240 kcal)","Verduras 100g (40 kcal)"],
-      martes:["Alubias 80g (270 kcal)","Ternera 120g + espárragos 100g + 1 cda aceite (240 kcal)"],
-      miercoles:["Sopa de verduras 250g (80 kcal)","Pollo 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      jueves:["Garbanzos 80g (270 kcal)","Langostinos 100g (90 kcal) + 1 cda aceite (120 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      viernes:["Ensalada de maíz 150g + aguacate 50g (80 kcal)","Lomo adobado 120g + verduras 100g (240 kcal) + 1 cda aceite (120 kcal)"],
-      sabado:["Patata al horno 150g (120 kcal)","Pescado 120g + 1 cda aceite (240 kcal)","Verduras 100g (40 kcal)"],
-      domingo:["Sopa de verduras 250g (80 kcal)","Pollo 120g + 1 cda aceite (240 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"]
-    },
-    cena:{
-      lunes:["Tortilla calabacín 100g (150 kcal) + 1 cda aceite (120 kcal)","Atún 120g (140 kcal)","Ensalada 150g + aguacate 50g (80 kcal)"],
-      martes:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Queso fresco 50g (50 kcal)"],
-      miercoles:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Pescado 120g + 1 cda aceite (240 kcal)"],
-      jueves:["Coles de Bruselas 150g (40 kcal)","Tortilla de jamón 100g (150 kcal) + 1 cda aceite (120 kcal)"],
-      viernes:["Champiñones 100g (25 kcal)","Pavo 100g + queso fresco 50g (110 kcal) + 1 cda aceite (120 kcal)"],
-      sabado:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Huevo a la plancha 100g (150 kcal) + queso fresco 50g (50 kcal)"],
-      domingo:["Ensalada 150g + aguacate 50g (80 kcal) + 1 cda aceite (120 kcal)","Pescado 120g + 1 cda aceite (240 kcal)"]
-    }
-  },
-  {
+// Función para extraer kcal de un string tipo "Pollo 120g (165 kcal)"
+function extraKcal(item){
+ const match = item.match(/\((\d+)\s*kcal\)/i);
+ return match ? parseInt(match[1]) : 0;
+}
 
+// Datos de las 8 semanas
+const WEEKS = [
+ {
+ title:"Semana 1",
+comida:{
+ lunes:["Patata al horno 200g (160 kcal)","Pollo 120g (200 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"],
+ martes:["Alubias cocidas 200g (180 kcal)","Atún natural 1 lata (120 kcal)","Queso fresco 50g (60 kcal)","Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Maíz 15g (tres cucharadas) (15 kcal)","Hamburguesa de ternera 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"],
+ jueves:["Garbanzos cocidos 200g (180 kcal)","Langostinos 100g (90 kcal)","Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["media Lasaña bolognesa 350g mercadona (500 kcal)","Espárragos blancos 150g (50 kcal)"],
+ sábado:["Caldo de verduras 250g (80 kcal)","Pescado a la plancha 120g (200 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Arroz 60g (210 kcal)"],
+ domingo:["Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Maíz 15g (tres cucharadas) (15 kcal)","Hamburguesa de ternera 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"]
+},
+cena:{
+ lunes:["Ensalada (lechuga 50 gr,  tomate 75 gr, cebolla 25 gr) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Jamón cocido o lata atun natural 50g (60 kcal)","huevo cocido 50gr (70 kcal)"],
+ martes:["Judías verdes 150g (50 kcal)","Brocheta de pollo 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Pescado guisado 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"],
+ jueves:["Crema de verduras 250g (120 kcal)","Huevo a la plancha  (80 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Canónigos 100g (50 kcal)","Pollo asado 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:[" Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Huevo a la plancha  (80 kcal)","Jamón cocido 30g (40 kcal)"],
+ domingo:["Pescado guisado 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"]
+}
+},
+{
+title:"Semana 2",
+comida:{
+ lunes:["Sopa de verduras 250g (120 kcal)","Fideos 70g (260 kcal)","Pollo 100g (165 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ martes:["Arroz con tomate 150g (180 kcal)","Huevo 60g (90 kcal)","Pimientos al horno 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Sopa de verduras 250g (120 kcal)","Fideos 70g (260 kcal)","Pollo 100g (165 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Garbanzos con acelga 150g (210 kcal)","Pescado 100g (120 kcal)","Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Tortilla de patata 150g (220 kcal)","Patatas cocidas 150g (120 kcal)","Verduras 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Guisantes con jamón 150g (180 kcal)","Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Lentejas 150g (180 kcal)","Ternera 100g (210 kcal)","Berenjenas 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+},
+cena:{
+ lunes:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Palitos de cangrejo 50g (75 kcal)","Atún natural 1 lata (120 kcal)"],
+ martes:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pollo 100g (165 kcal)"],
+ miércoles:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Palitos de cangrejo 50g (75 kcal)","Atún natural 1 lata (120 kcal)"],
+ jueves:["Tomate 100g (20 kcal)","Lomo de cerdo 100g (200 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Sopa juliana 250g (120 kcal)","Pollo 100g (165 kcal)","Jamón 30g (70 kcal)","Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Menestra 200g (150 kcal)","Pescado blanco 100g (120 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Ensalada 150g (60 kcal)","Huevo 1 pieza (70 kcal)","Queso fresco 50g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+},
+{
+title:"Semana 3",
+comida:{
+ lunes:["Menestra 200g (150 kcal)","Pescado merluza 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ martes:["Alubias 80g (270 kcal)","Ternera 120g (250 kcal)","Pimientos 100g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ miércoles:["Menestra 200g (150 kcal)","Pescado blanco 120g (160 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ jueves:["Macarrones 80g (280 kcal)","Tomate frito 50g (40 kcal)","Pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ viernes:["Patata cocida 150g (120 kcal)","Huevo a la plancha 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ sábado:["Arroz 80g (280 kcal)","3 delicias verduras 50g (40 kcal)","Ternera 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Tomate 100g (20 kcal)"],
+ domingo:["Garbanzos 80g (270 kcal)","Verduras 100g (50 kcal)","Hamburguesa de pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"]
+},
+cena:{
+ lunes:["Crema de calabacín 250g (80 kcal)","Tortilla 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ martes:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pescado 120g (120 kcal)"],
+ miércoles:["Crema de calabacín 250g (80 kcal)","Tortilla 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Champiñones 100g (25 kcal)","Jamón serrano 50g (120 kcal)"],
+ viernes:["Sopa de verduras 250g (80 kcal)","Pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Queso fresco 50g (50 kcal)","Atún 120g (140 kcal)"],
+ domingo:["Revuelto de espárragos verdes 150g (80 kcal)","Jamón cocido 50g (70 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+},
+{
+title:"Semana 4",
+comida:{
+ lunes:["Sopa de verduras 250g (80 kcal)","Pollo 120g (160 kcal)","Fideos 80g (120 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ martes:["Alubias 80g (270 kcal)","Huevo escalfado 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ miércoles:["Menestra 200g (150 kcal)","Pescado blanco 120g (160 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ jueves:["Arroz 80g (280 kcal)","Hamburguesa ternera 120g (140 kcal)","Tomate 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Sopa de verduras 250g (80 kcal)","Pollo 120g (160 kcal)","Fideos 80g (120 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ sábado:["Patata cocida 150g (120 kcal)","Huevo a la plancha 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Garbanzos 80g (270 kcal)","Espinacas 100g (25 kcal)","Pescado blanco 120g (160 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"]
+},
+cena:{
+ lunes:["Pimientos del piquillo 100g (25 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Bacalao 120g (120 kcal)"],
+ martes:["Huevo guisado 100g (150 kcal)","Verduras 150g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Coliflor 150g (30 kcal)","Jamón cocido 50g (80 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Lomo cerdo 120g (200 kcal)"],
+ viernes:["Pimientos del piquillo 100g (25 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Bacalao 120g (120 kcal)"],
+ sábado:["Espárragos verdes 150g (25 kcal)","Gambas 100g (90 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Berenjenas a la plancha 150g (40 kcal)","Tortilla de atún 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+},
+{
+title:"Semana 5",
+comida:{
+ lunes:["Patata al horno 150g (120 kcal)","Pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 100g (40 kcal)"],
+ martes:["Alubias 80g (270 kcal)","Ternera 120g (200 kcal)","Espárragos 100g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Sopa de verduras 250g (80 kcal)","Pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ jueves:["Garbanzos 80g (270 kcal)","Langostinos 100g (90 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ viernes:["Ensalada de maíz 150g (60 kcal)","Aguacate 50g (20 kcal)","Lomo adobado 120g (180 kcal)","Verduras 100g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Patata al horno 150g (120 kcal)","Pescado blanco 120g (160 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 100g (40 kcal)"],
+ domingo:["Sopa de verduras 250g (80 kcal)","Pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"]
+},
+cena:{
+ lunes:["Tortilla calabacín 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Atún 120g (140 kcal)","Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)"],
+ martes:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Queso fresco 50g (50 kcal)"],
+ miércoles:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pescado 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Coles de Bruselas 150g (40 kcal)","Tortilla de jamón 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Champiñones 100g (25 kcal)","Pavo 100g (100 kcal)","Queso fresco 50g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Huevo a la plancha 100g (150 kcal)","Queso fresco 50g (50 kcal)"],
+ domingo:["Ensalada 150g (60 kcal)","Aguacate 50g (20 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pescado 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+},
+{
 title:"Semana 6",
-    comida:{
-      lunes:["Patata guisada 200g (160 kcal)","Merluza 120g + 1 cda aceite 10g (240 kcal)","Verduras 150g (50 kcal)"],
-      martes:["Arroz integral 60g (210 kcal)","Ternera 120g + 1 cda aceite 10g (300 kcal)","Ensalada 100g + aguacate 50g (100 kcal)"],
-      miercoles:["Tortilla de patata 2 huevos + 150g patata (320 kcal)","Ensalada 100g + 1 cda aceite 10g (100 kcal)"],
-      jueves:["Patata guisada 200g (160 kcal)","Pescado 120g + 1 cda aceite 10g (240 kcal)","Verduras 150g (50 kcal)"],
-      viernes:["Crema de verduras 250g (120 kcal)","Cerdo adobado 120g + 1 cda aceite 10g (300 kcal)","Ensalada 100g (50 kcal)"],
-      sabado:["Lentejas 200g cocidas (180 kcal)","Tortilla 2 huevos (200 kcal)","Ensalada 100g + queso fresco 50g + 1 cda aceite 10g (140 kcal)"],
-      domingo:["Ensalada de pasta 150g (220 kcal)","Gambas 100g (90 kcal)","Atún natural 1 lata (120 kcal)","Aceite 10g (90 kcal)"]
-    },
-    cena:{
-      lunes:["Ensalada 150g + 1 cda aceite 10g (100 kcal)","Tortilla de jamón 2 huevos + 30g jamón (250 kcal)"],
-      martes:["Tomate en rodajas 150g (30 kcal)","Salchicha de pollo 100g (150 kcal)","Aceite 10g (90 kcal)"],
-      miercoles:["Pimientos asados 150g (50 kcal)","Bacalao 120g + 1 cda aceite 10g (240 kcal)"],
-      jueves:["Ensalada 150g + 1 cda aceite 10g (100 kcal)","Tortilla de jamón 2 huevos + 30g jamón (250 kcal)"],
-      viernes:["Caldo de verduras 250g (80 kcal)","Pollo 120g + verduras 150g + 1 cda aceite 10g (300 kcal)"],
-      sabado:["Espárragos blancos 150g (30 kcal)","Hamburguesa de ternera 120g + 1 cda aceite 10g (250 kcal)"],
-      domingo:["Verduras variadas 150g (50 kcal)","Pavo a la plancha 120g + 1 cda aceite 10g (250 kcal)"]
-    }
-  },
-  {
-    title:"Semana 7",
-    comida:{
-      lunes:["Tortilla 2 huevos (200 kcal)","Patatas cocidas 200g (160 kcal)","Ensalada 100g + 1 cda aceite 10g (100 kcal)"],
-      martes:["Garbanzos cocidos 200g (180 kcal)","Langostinos 100g (90 kcal)","Ensalada 100g + 1 cda aceite 10g (100 kcal)"],
-      miercoles:["Ensalada de maíz 100g + aguacate 50g (100 kcal)","Pescado a la plancha 120g + 1 cda aceite 10g (240 kcal)","Pisto 150g (100 kcal)"],
-      jueves:["Sopa de verduras 250g (80 kcal)","Arroz 60g con pollo 120g + 1 cda aceite 10g (350 kcal)"],
-      viernes:["Alubias cocidas 200g (180 kcal)","Pescado a la plancha 120g + 1 cda aceite 10g (240 kcal)","Ensalada 100g (50 kcal)"],
-      sabado:["Lasaña 150g (250 kcal)","Carne de ternera picada 120g + 1 cda aceite 10g (300 kcal)","Canónigos 100g (50 kcal)"],
-      domingo:["Ensalada de maíz 100g + aguacate 50g (100 kcal)","Pescado a la plancha 120g + 1 cda aceite 10g (240 kcal)","Pisto 150g (100 kcal)"]
-    },
-    cena:{
-      lunes:["Champiñones 150g (50 kcal)","Ternera a la plancha 120g + 1 cda aceite 10g (250 kcal)"],
-      martes:["Tortilla de jamón y atún 2 huevos + 30g jamón + 1 lata atún (350 kcal)","Rúcula 100g (20 kcal)"],
-      miercoles:["Menestra 150g (120 kcal)","Hamburguesa de pollo 120g + 1 cda aceite 10g (250 kcal)"],
-      jueves:["Ensalada 150g + 1 cda aceite 10g (100 kcal)","Mejillones y gambas cocidas 120g (150 kcal)"],
-      viernes:["Tortilla de calabacín 2 huevos (200 kcal)","Judías verdes 150g (50 kcal) + 1 cda aceite 10g (90 kcal)"],
-      sabado:["Pescado guisado 120g + 1 cda aceite 10g (250 kcal)","Verduras 150g (50 kcal)"],
-      domingo:["Menestra 150g (120 kcal)","Hamburguesa de pollo 120g + 1 cda aceite 10g (250 kcal)"]
-    }
-  },
-  {
-    title:"Semana 8",
-    comida:{
-      lunes:["Patata al horno 200g (160 kcal)","Pollo 120g + 1 cda aceite 10g (240 kcal)","Verduras 150g (50 kcal)"],
-      martes:["Alubias cocidas 200g (180 kcal)","Atún natural 1 lata (120 kcal)","Queso fresco 50g (60 kcal)","Ensalada 100g + 1 cda aceite 10g (100 kcal)"],
-      miercoles:["Ensalada de maíz 100g + aguacate 50g (100 kcal)","Hamburguesa de ternera 120g + 1 cda aceite 10g (250 kcal)","Verduras 150g (50 kcal)"],
-      jueves:["Garbanzos cocidos 200g (180 kcal)","Langostinos 100g (90 kcal)","Ensalada 100g + 1 cda aceite 10g (100 kcal)"],
-      viernes:["Lasaña 150g (250 kcal)","Lomo de cerdo 120g + 1 cda aceite 10g (300 kcal)","Espárragos verdes 150g (50 kcal)"],
-      sabado:["Caldo de verduras 250g (80 kcal)","Pescado a la plancha 120g + 1 cda aceite 10g (240 kcal)","Arroz 60g (210 kcal)"],
-      domingo:["Ensalada de maíz 100g + aguacate 50g (100 kcal)","Hamburguesa de ternera 120g + 1 cda aceite 10g (250 kcal)","Verduras 150g (50 kcal)"]
-    },
-    cena:{
-      lunes:["Ensalada 150g + 1 cda aceite 10g (100 kcal)","Jamón cocido 50g (60 kcal)"],
-      martes:["Judías verdes 150g (50 kcal)","Brocheta de pollo 120g + 1 cda aceite 10g (250 kcal)"],
-      miercoles:["Pescado guisado 120g + 1 cda aceite 10g (250 kcal)","Verduras 150g (50 kcal)"],
-      jueves:["Crema de verduras 250g (120 kcal)","Huevo a la plancha 2 huevos (200 kcal) + 1 cda aceite 10g (90 kcal)"],
-      viernes:["Canónigos 100g (50 kcal)","Pollo asado 120g + 1 cda aceite 10g (250 kcal)"],
-      sabado:["Ensalada 150g + 1 cda aceite 10g (100 kcal)","Huevo a la plancha 2 huevos + jamón cocido 30g (250 kcal)"],
-      domingo:["Pescado guisado 120g + 1 cda aceite 10g (250 kcal)","Verduras 150g (50 kcal)"]
-    }
-  }
+comida:{
+ lunes:["Patata guisada 200g (160 kcal)","Merluza 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"],
+ martes:["Arroz integral 60g (210 kcal)","Ternera 120g (210 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 100g (50 kcal)","Aguacate 50g (50 kcal)"],
+ miércoles:["Tortilla de patata 2 huevos + 150g patata (320 kcal)","Ensalada 100g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Patata guisada 200g (160 kcal)","Pescado 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"],
+ viernes:["Crema de verduras 250g (120 kcal)","Cerdo adobado 120g (180 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 100g (50 kcal)"],
+ sábado:["Lentejas 200g cocidas (180 kcal)","Tortilla 2 huevos (200 kcal)","Ensalada 100g (50 kcal)","Queso fresco 50g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Ensalada de pasta 150g (220 kcal)","Gambas 100g (90 kcal)","Atún natural 1 lata (120 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+},
+cena:{
+ lunes:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Tortilla de jamón 2 huevos + 30g jamón (250 kcal)"],
+ martes:["Tomate en rodajas 150g (30 kcal)","Salchicha de pollo 100g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Pimientos asados 150g (50 kcal)","Bacalao 120g (120 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Tortilla de jamón 2 huevos + 30g jamón (250 kcal)"],
+ viernes:["Caldo de verduras 250g (80 kcal)","Pollo 120g (150 kcal)","Verduras 150g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Espárragos blancos 150g (30 kcal)","Hamburguesa de ternera 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Verduras variadas 150g (50 kcal)","Pavo a la plancha 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+},
+{
+title:"Semana 7",
+comida:{
+ lunes:["Tortilla 2 huevos (200 kcal)","Patatas cocidas 200g (160 kcal)","Ensalada 100g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ martes:["Garbanzos cocidos 200g (180 kcal)","Langostinos 100g (90 kcal)","Ensalada 100g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Ensalada de maíz 100g (60 kcal)","Aguacate 50g (40 kcal)","Pescado a la plancha 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pisto 150g (100 kcal)"],
+ jueves:["Sopa de verduras 250g (80 kcal)","Arroz 60g (70 kcal)","Pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Alubias cocidas 200g (180 kcal)","Pescado a la plancha 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Ensalada 100g (50 kcal)"],
+ sábado:["Lasaña 150g (250 kcal)","Carne de ternera picada 120g (180 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Canónigos 100g (50 kcal)"],
+ domingo:["Ensalada de maíz 100g (60 kcal)","Aguacate 50g (40 kcal)","Pescado a la plancha 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pisto 150g (100 kcal)"]
+},
+cena:{
+ lunes:["Champiñones 150g (50 kcal)","Ternera a la plancha 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ martes:["Tortilla de jamón y atún 2 huevos + 30g jamón + 1 lata atún (350 kcal)","Rúcula 100g (20 kcal)"],
+ miércoles:["Menestra 150g (120 kcal)","Hamburguesa de pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Mejillones y gambas cocidas 120g (150 kcal)"],
+ viernes:["Tortilla de calabacín 2 huevos (200 kcal)","Judías verdes 150g (50 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Pescado guisado 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Verduras 150g (50 kcal)"],
+ domingo:["Menestra 150g (120 kcal)","Hamburguesa de pollo 120g (150 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+},
+{
+title:"Semana 8",
+comida:{
+ lunes:["Sopa de verduras 250g (120 kcal)","Fideos 70g (260 kcal)","Pollo 100g (165 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ martes:["Arroz con tomate 150g (180 kcal)","Huevo 60g (90 kcal)","Pimientos al horno 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ miércoles:["Sopa de verduras 250g (120 kcal)","Fideos 70g (260 kcal)","Pollo 100g (165 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ jueves:["Garbanzos con acelga 150g (210 kcal)","Pescado 100g (120 kcal)","Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Tortilla de patata 150g (220 kcal)","Patatas cocidas 150g (120 kcal)","Verduras 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Guisantes con jamón 150g (180 kcal)","Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Lentejas 150g (180 kcal)","Ternera 100g (210 kcal)","Berenjenas 100g (40 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+},
+cena:{
+ lunes:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Palitos de cangrejo 50g (75 kcal)","Atún natural 1 lata (120 kcal)"],
+ martes:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Pollo 100g (165 kcal)"],
+ miércoles:["Ensalada 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)","Palitos de cangrejo 50g (75 kcal)","Atún natural 1 lata (120 kcal)"],
+ jueves:["Tomate 100g (20 kcal)","Lomo de cerdo 100g (200 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ viernes:["Sopa juliana 250g (120 kcal)","Pollo 100g (165 kcal)","Jamón 30g (70 kcal)","Ensalada (lechuga, medio tomate, 1/4 cebolla) 150g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ sábado:["Menestra 200g (150 kcal)","Pescado blanco 100g (120 kcal)","Cucharada sopera Aceite 10g (90 kcal)"],
+ domingo:["Ensalada 150g (60 kcal)","Huevo 1 pieza (70 kcal)","Queso fresco 50g (60 kcal)","Cucharada sopera Aceite 10g (90 kcal)"]
+}
+}
 ];
 
 // Generar tablas y calcular kcal por día
 const container = document.getElementById("weeks-container");
 
 WEEKS.forEach((week, i) => {
-  const table = document.createElement("table");
-  table.id = "week-" + i;
-  table.className = "min-w-full border-collapse mb-8 text-xs sm:text-sm border hidden";
+ const table = document.createElement("table");
+ table.id = "week-" + i;
+ table.className = "min-w-full border-collapse mb-8 text-xs sm:text-sm border hidden";
 
-  // Generar filas de comida y cena
-  const rowsHtml = ["comida", "cena"].map(meal => {
-    return `<tr class="border-t">
-      <th class="p-2 text-left sticky left-0 bg-white">${meal.charAt(0).toUpperCase() + meal.slice(1)}</th>
-      ${DAYS.map(day => {
-        const items = week[meal][day] || PLACEHOLDER;
-        return `<td class="p-2 align-top">
-          ${items.map(i => `<span class="inline-block bg-gray-200 rounded-2xl px-2 py-1 mb-1">${i}</span>`).join("<br>")}
-        </td>`;
-      }).join("")}
-    </tr>`;
-  }).join("");
+ // Generar filas de comida y cena
+ const rowsHtml = ["comida", "cena"].map(meal => {
+ return `<tr class="border-t">
+ <th class="p-2 text-left sticky left-0 bg-white">${meal.charAt(0).toUpperCase() + meal.slice(1)}</th>
+ ${DAYS.map(day => {
+ const items = week[meal][day] || PLACEHOLDER;
+ return `<td class="p-2 align-top">
+ ${items.map(i => `<span class="inline-block bg-gray-200 rounded-2xl px-2 py-1 mb-1">${i}</span>`).join("<br>")}
+ </td>`;
+ }).join("")}
+ </tr>`;
+ }).join("");
 
-  // Calcular total kcal por día incluyendo desayuno, media mañana y merienda
-  let totalKcalRow = `<tr class="border-t bg-yellow-100 font-semibold">
-    <th class="p-2 text-left sticky left-0 bg-yellow-100">Total kcal</th>`;
-  DAYS.forEach(day => {
-    const comidaKcal = week.comida[day].reduce((sum, i) => sum + extraKcal(i), 0);
-    const cenaKcal = week.cena[day].reduce((sum, i) => sum + extraKcal(i), 0);
-    const totalDia = comidaKcal + cenaKcal + BREAKFAST_KCAL + MID_MORNING_KCAL + SNACK_KCAL;
-    totalKcalRow += `<td class="p-2 align-top">${totalDia} kcal</td>`;
-  });
-  totalKcalRow += "</tr>";
+ // Calcular total kcal por día incluyendo desayuno, media mañana y merienda
+ let totalKcalRow = `<tr class="border-t bg-yellow-100 font-semibold">
+ <th class="p-2 text-left sticky left-0 bg-yellow-100">Total kcal</th>`;
+ DAYS.forEach(day => {
+ const comidaKcal = week.comida[day].reduce((sum, i) => sum + extraKcal(i), 0);
+ const cenaKcal = week.cena[day].reduce((sum, i) => sum + extraKcal(i), 0);
+ const totalDia = comidaKcal + cenaKcal + BREAKFAST_KCAL + MID_MORNING_KCAL + SNACK_KCAL;
+ totalKcalRow += `<td class="p-2 align-top">${totalDia} kcal</td>`;
+ });
+ totalKcalRow += "</tr>";
 
-  // Generar tabla completa
-  table.innerHTML = `
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="p-2 text-left sticky left-0 bg-gray-200">${week.title}</th>
-        ${DAY_LABELS.map(d => `<th class="p-2 text-left">${d}</th>`).join("")}
-      </tr>
-    </thead>
-    <tbody>
-      ${rowsHtml}
-      ${totalKcalRow}
-    </tbody>
-  `;
+ // Generar tabla completa
+ table.innerHTML = `
+ <thead class="bg-gray-200">
+ <tr>
+ <th class="p-2 text-left sticky left-0 bg-gray-200">${week.title}</th>
+ ${DAY_LABELS.map(d => `<th class="p-2 text-left">${d}</th>`).join("")}
+ </tr>
+ </thead>
+ <tbody>
+ ${rowsHtml}
+ ${totalKcalRow}
+ </tbody>
+ `;
 
-  container.appendChild(table);
+ container.appendChild(table);
 });
+
+// Variable para rastrear el botón activo
+let activeWeekIndex = 0;
+
+// Función para actualizar el estilo de los botones
+function updateActiveButton(newActiveIndex) {
+ // Remover estilos activos del botón anterior
+ const prevBtn = document.getElementById(`btn-${activeWeekIndex}`);
+ if (prevBtn) {
+ prevBtn.className = "week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600";
+ }
+ 
+ // Añadir estilos activos al nuevo botón
+ const newBtn = document.getElementById(`btn-${newActiveIndex}`);
+ if (newBtn) {
+ newBtn.className = "week-btn px-3 py-1 border rounded bg-orange-500 text-white hover:bg-orange-600 ring-2 ring-orange-300 shadow-lg transform scale-105";
+ }
+ 
+ // Actualizar el índice activo
+ activeWeekIndex = newActiveIndex;
+}
 
 // Función para mostrar solo la semana seleccionada
 function showWeek(index){
-  WEEKS.forEach((_, i)=>{
-    document.getElementById("week-"+i).classList.add("hidden");
-  });
-  document.getElementById("week-"+index).classList.remove("hidden");
+ WEEKS.forEach((_, i)=>{
+ document.getElementById("week-"+i).classList.add("hidden");
+ });
+ document.getElementById("week-"+index).classList.remove("hidden");
+ 
+ // Actualizar el botón activo
+ updateActiveButton(index);
 }
 
-// Mostrar la primera semana al cargar
+// Mostrar la primera semana al cargar y activar su botón
 showWeek(0);
 </script>
 </body>
