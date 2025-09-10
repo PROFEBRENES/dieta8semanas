@@ -14,63 +14,95 @@
  }
 </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gradient-to-br from-blue-50 to-green-50 text-gray-800 min-h-screen">
 <div class="mx-auto max-w-7xl p-6">
 
-<h1 class="text-3xl font-semibold mb-4">Plan de adelgazamiento – 8 semanas</h1>
-
-<!-- Botones de impresión y selección de semana -->
-<div class="flex flex-wrap gap-2 mb-6 no-print">
- <button onclick="window.print()" class="px-3 py-1 border rounded bg-green-500 text-white hover:bg-green-600">🖨️ Imprimir / PDF</button>
- <button id="btn-0" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(0)">Semana 1</button>
- <button id="btn-1" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(1)">Semana 2</button>
- <button id="btn-2" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(2)">Semana 3</button>
- <button id="btn-3" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(3)">Semana 4</button>
- <button id="btn-4" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(4)">Semana 5</button>
- <button id="btn-5" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(5)">Semana 6</button>
- <button id="btn-6" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(6)">Semana 7</button>
- <button id="btn-7" class="week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600" onclick="showWeek(7)">Semana 8</button>
+<div class="text-center mb-6">
+ <h1 class="text-4xl font-bold mb-2 text-blue-800">Plan de adelgazamiento</h1>
+ <p class="text-xl text-gray-600">8 semanas de nutrición balanceada</p>
+ <div class="mt-2 p-2 bg-blue-100 rounded-lg inline-block">
+  <span class="text-sm font-medium">📊 Objetivo diario: ~1200 kcal</span>
+ </div>
 </div>
 
-<!-- Sección colapsable de comidas fijas -->
-<div class="mb-6 bg-white border rounded-lg shadow-sm">
- <!-- Botón para colapsar -->
+<!-- Botones de navegación mejorados -->
+<div class="flex flex-wrap gap-2 mb-6 no-print justify-center">
+ <button onclick="window.print()" class="px-4 py-2 border rounded-lg bg-green-500 text-white hover:bg-green-600 shadow-md transition-all duration-200 hover:shadow-lg">🖨️ Imprimir / PDF</button>
+ <button onclick="showAllWeeks()" class="px-4 py-2 border rounded-lg bg-purple-500 text-white hover:bg-purple-600 shadow-md transition-all duration-200 hover:shadow-lg">👁️ Ver todas</button>
+ <div class="w-full md:w-auto"></div>
+ <button id="btn-0" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(0)">Semana 1</button>
+ <button id="btn-1" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(1)">Semana 2</button>
+ <button id="btn-2" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(2)">Semana 3</button>
+ <button id="btn-3" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(3)">Semana 4</button>
+ <button id="btn-4" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(4)">Semana 5</button>
+ <button id="btn-5" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(5)">Semana 6</button>
+ <button id="btn-6" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(6)">Semana 7</button>
+ <button id="btn-7" class="week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200" onclick="showWeek(7)">Semana 8</button>
+</div>
+
+<!-- Sección de comidas fijas con mejor diseño -->
+<div class="mb-6 bg-white border-2 border-blue-200 rounded-xl shadow-lg">
  <button 
    onclick="toggleFixedMeals()" 
-   class="w-full p-4 text-left flex items-center justify-between bg-blue-100 hover:bg-blue-200 rounded-t-lg transition-colors cursor-pointer no-print">
-   <span class="text-lg font-semibold">📋 Comidas fijas diarias (Desayuno, Media mañana, Merienda) - 550 kcal</span>
-   <span id="toggle-icon" class="text-xl font-bold">▼</span>
+   class="w-full p-4 text-left flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 rounded-t-xl transition-all duration-200 cursor-pointer no-print">
+   <span class="text-lg font-semibold text-blue-800">📋 Comidas fijas diarias (Desayuno, Media mañana, Merienda) - 550 kcal</span>
+   <span id="toggle-icon" class="text-xl font-bold text-blue-600">▼</span>
  </button>
  
- <!-- Contenido colapsable -->
- <div id="fixed-meals-content" class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-   <div class="p-4 border rounded shadow-sm">
-     <h3 class="flex items-center gap-2 text-base mb-2 font-semibold">🥛 Desayuno (~300 kcal)</h3>
-     <ul class="list-disc pl-4 text-sm space-y-1">
-       <li>Leche desnatada 200 ml (70 kcal)</li>
-       <li>Pan integral 40 g (105 kcal)</li>
-       <li>Queso light 30 g (45 kcal) o pavo 30 g (30 kcal)</li>
-       <li>Café solo 0 kcal</li>
+ <div id="fixed-meals-content" class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+   <div class="p-4 border-2 border-orange-200 rounded-lg shadow-sm bg-gradient-to-b from-orange-50 to-orange-100">
+     <h3 class="flex items-center gap-2 text-base mb-3 font-semibold text-orange-800">🥛 Desayuno (~300 kcal)</h3>
+     <ul class="list-disc pl-4 text-sm space-y-2">
+       <li>Leche desnatada 200 ml <span class="text-orange-600 font-medium">(70 kcal)</span></li>
+       <li>Pan integral 40 g <span class="text-orange-600 font-medium">(105 kcal)</span></li>
+       <li>Queso light 30 g <span class="text-orange-600 font-medium">(45 kcal)</span> o pavo 30 g <span class="text-orange-600 font-medium">(30 kcal)</span></li>
+       <li>Café solo <span class="text-orange-600 font-medium">0 kcal</span></li>
      </ul>
    </div>
-   <div class="p-4 border rounded shadow-sm">
-     <h3 class="flex items-center gap-2 text-base mb-2 font-semibold">🍎 Media mañana (~100 kcal)</h3>
-     <ul class="list-disc pl-4 text-sm space-y-1">
-       <li>Fruta: manzana 1 pieza (80 kcal)</li>
+   <div class="p-4 border-2 border-green-200 rounded-lg shadow-sm bg-gradient-to-b from-green-50 to-green-100">
+     <h3 class="flex items-center gap-2 text-base mb-3 font-semibold text-green-800">🍎 Media mañana (~100 kcal)</h3>
+     <ul class="list-disc pl-4 text-sm space-y-2">
+       <li>Fruta: manzana 1 pieza <span class="text-green-600 font-medium">(80 kcal)</span></li>
      </ul>
    </div>
-   <div class="p-4 border rounded shadow-sm">
-     <h3 class="flex items-center gap-2 text-base mb-2 font-semibold">🥤 Merienda (~150 kcal)</h3>
-     <ul class="list-disc pl-4 text-sm space-y-1">
-       <li>Leche desnatada 150 ml (52 kcal)</li>
-       <li>Fruta: plátano 1 pieza (100 kcal)</li>
+   <div class="p-4 border-2 border-purple-200 rounded-lg shadow-sm bg-gradient-to-b from-purple-50 to-purple-100">
+     <h3 class="flex items-center gap-2 text-base mb-3 font-semibold text-purple-800">🥤 Merienda (~150 kcal)</h3>
+     <ul class="list-disc pl-4 text-sm space-y-2">
+       <li>Leche desnatada 150 ml <span class="text-purple-600 font-medium">(52 kcal)</span></li>
+       <li>Fruta: plátano 1 pieza <span class="text-purple-600 font-medium">(100 kcal)</span></li>
      </ul>
    </div>
  </div>
 </div>
 
+<!-- Indicador de progreso -->
+<div id="progress-indicator" class="mb-6 no-print">
+ <div class="bg-white rounded-lg p-4 shadow-md border">
+   <div class="flex items-center justify-between mb-2">
+     <span class="text-sm font-medium text-gray-700">Progreso del plan</span>
+     <span id="progress-text" class="text-sm text-blue-600 font-semibold">Semana 1 de 8</span>
+   </div>
+   <div class="w-full bg-gray-200 rounded-full h-3">
+     <div id="progress-bar" class="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full transition-all duration-500" style="width: 12.5%"></div>
+   </div>
+ </div>
+</div>
+
+<!-- Consejos nutricionales -->
+<div id="nutrition-tips" class="mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 p-4 rounded-r-lg shadow-sm no-print">
+ <h3 class="text-lg font-semibold text-yellow-800 mb-2">💡 Consejos para esta semana</h3>
+ <p id="weekly-tip" class="text-yellow-700 text-sm"></p>
+</div>
+
 <!-- Contenedor de tablas -->
 <div id="weeks-container"></div>
+
+<!-- Botón flotante para navegación rápida -->
+<div id="floating-nav" class="fixed bottom-6 right-6 no-print">
+ <button onclick="showPrevWeek()" class="mb-2 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition-all duration-200 hover:scale-110">←</button>
+ <button onclick="showNextWeek()" class="w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition-all duration-200 hover:scale-110">→</button>
+</div>
+
 </div>
 
 <script>
@@ -85,6 +117,19 @@ const SNACK_KCAL = 150;
 
 // Variable para controlar si las comidas fijas están expandidas
 let fixedMealsExpanded = true;
+let showingAllWeeks = false;
+
+// Consejos semanales
+const WEEKLY_TIPS = [
+ "Primera semana: Concéntrate en adaptarte a las porciones. Bebe mucha agua entre comidas.",
+ "Segunda semana: Tu cuerpo se está adaptando. Es normal sentir algo de hambre inicial.",
+ "Tercera semana: ¡Genial! Ya llevas 3 semanas. Nota cómo mejora tu energía durante el día.",
+ "Cuarta semana: Mes completo. Revisa tu progreso y celebra los pequeños logros.",
+ "Quinta semana: Punto medio del plan. Mantén la motivación y la constancia.",
+ "Sexta semana: Tu metabolismo se está optimizando. Los resultados son más evidentes.",
+ "Séptima semana: Penúltima semana. Piensa en cómo mantener estos hábitos a largo plazo.",
+ "Octava semana: ¡Última semana! Has creado hábitos saludables que durarán."
+];
 
 // Función para contraer/expandir las comidas fijas
 function toggleFixedMeals() {
@@ -92,25 +137,23 @@ function toggleFixedMeals() {
  const icon = document.getElementById('toggle-icon');
  
  if (fixedMealsExpanded) {
-   // Contraer
    content.style.display = 'none';
    icon.textContent = '▶';
    fixedMealsExpanded = false;
  } else {
-   // Expandir
    content.style.display = 'grid';
    icon.textContent = '▼';
    fixedMealsExpanded = true;
  }
 }
 
-// Función para extraer kcal de un string tipo "Pollo 120g (165 kcal)"
+// Función para extraer kcal de un string
 function extraKcal(item){
  const match = item.match(/\((\d+)\s*kcal\)/i);
  return match ? parseInt(match[1]) : 0;
 }
 
-// Datos de las 8 semanas
+// Datos de las 8 semanas (mismo contenido que tu original)
 const WEEKS = [
  {
  title:"Semana 1",
@@ -282,70 +325,41 @@ cena:{
 }
 ];
 
-// Generar tablas y calcular kcal por día
-const container = document.getElementById("weeks-container");
-
-WEEKS.forEach((week, i) => {
- const table = document.createElement("table");
- table.id = "week-" + i;
- table.className = "min-w-full border-collapse mb-8 text-xs sm:text-sm border hidden";
-
- // Generar filas de comida y cena
- const rowsHtml = ["comida", "cena"].map(meal => {
- return `<tr class="border-t">
- <th class="p-2 text-left sticky left-0 bg-white">${meal.charAt(0).toUpperCase() + meal.slice(1)}</th>
- ${DAYS.map(day => {
- const items = week[meal][day] || PLACEHOLDER;
- return `<td class="p-2 align-top">
- ${items.map(i => `<span class="inline-block bg-gray-200 rounded-2xl px-2 py-1 mb-1">${i}</span>`).join("<br>")}
- </td>`;
- }).join("")}
- </tr>`;
- }).join("");
-
- // Calcular total kcal por día incluyendo desayuno, media mañana y merienda
- let totalKcalRow = `<tr class="border-t bg-yellow-100 font-semibold">
- <th class="p-2 text-left sticky left-0 bg-yellow-100">Total kcal</th>`;
- DAYS.forEach(day => {
- const comidaKcal = week.comida[day].reduce((sum, i) => sum + extraKcal(i), 0);
- const cenaKcal = week.cena[day].reduce((sum, i) => sum + extraKcal(i), 0);
- const totalDia = comidaKcal + cenaKcal + BREAKFAST_KCAL + MID_MORNING_KCAL + SNACK_KCAL;
- totalKcalRow += `<td class="p-2 align-top">${totalDia} kcal</td>`;
- });
- totalKcalRow += "</tr>";
-
- // Generar tabla completa
- table.innerHTML = `
- <thead class="bg-gray-200">
- <tr>
- <th class="p-2 text-left sticky left-0 bg-gray-200">${week.title}</th>
- ${DAY_LABELS.map(d => `<th class="p-2 text-left">${d}</th>`).join("")}
- </tr>
- </thead>
- <tbody>
- ${rowsHtml}
- ${totalKcalRow}
- </tbody>
- `;
-
- container.appendChild(table);
-});
-
 // Variable para rastrear el botón activo
 let activeWeekIndex = 0;
+
+// Función para actualizar el consejo semanal
+function updateWeeklyTip(weekIndex) {
+ const tipElement = document.getElementById('weekly-tip');
+ if (tipElement) {
+   tipElement.textContent = WEEKLY_TIPS[weekIndex];
+ }
+}
+
+// Función para actualizar la barra de progreso
+function updateProgress(weekIndex) {
+ const progressBar = document.getElementById('progress-bar');
+ const progressText = document.getElementById('progress-text');
+ 
+ if (progressBar && progressText) {
+   const percentage = ((weekIndex + 1) / 8) * 100;
+   progressBar.style.width = percentage + '%';
+   progressText.textContent = `Semana ${weekIndex + 1} de 8`;
+ }
+}
 
 // Función para actualizar el estilo de los botones
 function updateActiveButton(newActiveIndex) {
  // Remover estilos activos del botón anterior
  const prevBtn = document.getElementById(`btn-${activeWeekIndex}`);
  if (prevBtn) {
- prevBtn.className = "week-btn px-3 py-1 border rounded bg-blue-500 text-white hover:bg-blue-600";
+   prevBtn.className = "week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200";
  }
  
  // Añadir estilos activos al nuevo botón
  const newBtn = document.getElementById(`btn-${newActiveIndex}`);
  if (newBtn) {
- newBtn.className = "week-btn px-3 py-1 border rounded bg-orange-500 text-white hover:bg-orange-600 ring-2 ring-orange-300 shadow-lg transform scale-105";
+   newBtn.className = "week-btn px-4 py-2 border rounded-lg bg-orange-500 text-white hover:bg-orange-600 shadow-lg ring-2 ring-orange-300 transform scale-105 transition-all duration-200";
  }
  
  // Actualizar el índice activo
@@ -354,20 +368,154 @@ function updateActiveButton(newActiveIndex) {
 
 // Función para mostrar solo la semana seleccionada
 function showWeek(index){
+ showingAllWeeks = false;
  WEEKS.forEach((_, i)=>{
- document.getElementById("week-"+i).classList.add("hidden");
+   document.getElementById("week-"+i).classList.add("hidden");
  });
  document.getElementById("week-"+index).classList.remove("hidden");
  
- // Actualizar el botón activo
+ // Actualizar el botón activo, progreso y consejo
  updateActiveButton(index);
+ updateProgress(index);
+ updateWeeklyTip(index);
 }
 
-// Mostrar la primera semana al cargar y activar su botón
-showWeek(0);
+// Función para mostrar todas las semanas
+function showAllWeeks(){
+ showingAllWeeks = true;
+ WEEKS.forEach((_, i)=>{
+   document.getElementById("week-"+i).classList.remove("hidden");
+ });
+ 
+ // Resetear estilos de botones
+ WEEKS.forEach((_, i)=>{
+   const btn = document.getElementById(`btn-${i}`);
+   if (btn) {
+     btn.className = "week-btn px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-all duration-200";
+   }
+ });
+ 
+ // Ocultar indicadores específicos de semana
+ const progressIndicator = document.getElementById('progress-indicator');
+ const nutritionTips = document.getElementById('nutrition-tips');
+ if (progressIndicator) progressIndicator.style.display = 'none';
+ if (nutritionTips) nutritionTips.style.display = 'none';
+}
+
+// Funciones de navegación rápida
+function showNextWeek() {
+ if (showingAllWeeks) return;
+ const nextWeek = (activeWeekIndex + 1) % 8;
+ showWeek(nextWeek);
+}
+
+function showPrevWeek() {
+ if (showingAllWeeks) return;
+ const prevWeek = activeWeekIndex === 0 ? 7 : activeWeekIndex - 1;
+ showWeek(prevWeek);
+}
+
+// Generar tablas y calcular kcal por día
+const container = document.getElementById("weeks-container");
+
+WEEKS.forEach((week, i) => {
+ const table = document.createElement("table");
+ table.id = "week-" + i;
+ table.className = "min-w-full border-collapse mb-8 text-xs sm:text-sm border hidden bg-white rounded-lg shadow-lg overflow-hidden";
+
+ // Generar filas de comida y cena con mejor estilo
+ const rowsHtml = ["comida", "cena"].map((meal, mealIndex) => {
+   const bgColor = mealIndex === 0 ? "bg-blue-50" : "bg-green-50";
+   const textColor = mealIndex === 0 ? "text-blue-800" : "text-green-800";
+   const emoji = mealIndex === 0 ? "🍽️" : "🌙";
+   
+   return `<tr class="border-t ${bgColor}">
+     <th class="p-3 text-left sticky left-0 ${bgColor} ${textColor} font-semibold">
+       ${emoji} ${meal.charAt(0).toUpperCase() + meal.slice(1)}
+     </th>
+     ${DAYS.map(day => {
+       const items = week[meal][day] || PLACEHOLDER;
+       return `<td class="p-3 align-top">
+         ${items.map(i => {
+           const kcal = extraKcal(i);
+           const kcalColor = kcal > 200 ? 'text-red-600' : kcal > 100 ? 'text-orange-600' : 'text-green-600';
+           return `<span class="inline-block bg-white border rounded-full px-3 py-1 mb-2 text-xs shadow-sm hover:shadow-md transition-shadow duration-200">
+             ${i.replace(/\(\d+\s*kcal\)/i, '')}
+             <span class="${kcalColor} font-semibold">(${kcal} kcal)</span>
+           </span>`;
+         }).join("<br>")}
+       </td>`;
+     }).join("")}
+   </tr>`;
+ }).join("");
+
+ // Calcular total kcal por día con mejor visualización
+ let totalKcalRow = `<tr class="border-t bg-gradient-to-r from-yellow-100 to-orange-100 font-bold">
+   <th class="p-3 text-left sticky left-0 bg-gradient-to-r from-yellow-100 to-orange-100 text-yellow-800">
+     📊 Total kcal/día
+   </th>`;
+ 
+ let weeklyTotal = 0;
+ DAYS.forEach(day => {
+   const comidaKcal = week.comida[day].reduce((sum, i) => sum + extraKcal(i), 0);
+   const cenaKcal = week.cena[day].reduce((sum, i) => sum + extraKcal(i), 0);
+   const totalDia = comidaKcal + cenaKcal + BREAKFAST_KCAL + MID_MORNING_KCAL + SNACK_KCAL;
+   weeklyTotal += totalDia;
+   
+   const colorClass = totalDia > 1300 ? 'text-red-600' : totalDia < 1100 ? 'text-blue-600' : 'text-green-600';
+   totalKcalRow += `<td class="p-3 align-top ${colorClass} text-center font-bold">${totalDia} kcal</td>`;
+ });
+ totalKcalRow += "</tr>";
+ 
+ // Añadir fila con promedio semanal
+ const avgDaily = Math.round(weeklyTotal / 7);
+ const avgRow = `<tr class="bg-gray-100 font-semibold text-gray-700">
+   <th class="p-3 text-left sticky left-0 bg-gray-100">📈 Promedio semanal</th>
+   <td colspan="7" class="p-3 text-center">${avgDaily} kcal/día (Total semanal: ${weeklyTotal} kcal)</td>
+ </tr>`;
+
+ // Generar tabla completa con mejor header
+ table.innerHTML = `
+   <thead class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+     <tr>
+       <th class="p-4 text-left sticky left-0 bg-gradient-to-r from-blue-600 to-blue-700 text-lg font-bold">
+         🗓️ ${week.title}
+       </th>
+       ${DAY_LABELS.map(d => `<th class="p-4 text-center font-semibold">${d}</th>`).join("")}
+     </tr>
+   </thead>
+   <tbody>
+     ${rowsHtml}
+     ${totalKcalRow}
+     ${avgRow}
+   </tbody>
+ `;
+
+ container.appendChild(table);
+});
+
+// Inicializar la aplicación
+document.addEventListener('DOMContentLoaded', function() {
+ // Mostrar la primera semana al cargar
+ showWeek(0);
+ 
+ // Agregar atajos de teclado
+ document.addEventListener('keydown', function(e) {
+   if (showingAllWeeks) return;
+   
+   if (e.key === 'ArrowLeft') {
+     e.preventDefault();
+     showPrevWeek();
+   } else if (e.key === 'ArrowRight') {
+     e.preventDefault();
+     showNextWeek();
+   } else if (e.key >= '1' && e.key <= '8') {
+     e.preventDefault();
+     showWeek(parseInt(e.key) - 1);
+   }
+ });
+});
+
 </script>
 </body>
 </html>
-
-
-
